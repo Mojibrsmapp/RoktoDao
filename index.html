@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RoktoDao | রক্তদাও - Cox's Bazar</title>
+    <title>RoktoDao | রক্তদাও - Life Saving Platform</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -11,90 +11,144 @@
     <!-- Navbar -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="#" class="logo"><i class="fa-solid fa-droplet"></i> RoktoDao</a>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#search-donors">Find Blood</a></li>
-                <li><a href="#register" class="btn-primary">Become a Donor</a></li>
+            <a href="#" class="logo" onclick="showPage('home')"><i class="fa-solid fa-droplet"></i> RoktoDao</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#" onclick="showPage('home')">হোম</a></li>
+                <li><a href="#" onclick="showPage('search')">ডোনার খুঁজুন</a></li>
+                <li><a href="#" onclick="showPage('register')">রেজিস্ট্রেশন</a></li>
+                <li><a href="#" onclick="showPage('about')">আমাদের সম্পর্কে</a></li>
+                <li><a href="#" onclick="showPage('team')">টিম</a></li>
+                <li><a href="#" onclick="showPage('faq')">FAQ</a></li>
+                <li><a href="#" onclick="showPage('contact')">যোগাযোগ</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header id="home" class="hero">
-        <div class="hero-content">
-            <h1>এক ব্যাগ রক্ত বাঁচাতে পারে একটি জীবন!</h1>
-            <p>কক্সবাজার অঞ্চলের সবচেয়ে বড় এবং বিশ্বস্ত রক্তদান প্ল্যাটফর্ম। আজই যুক্ত হোন আমাদের সাথে।</p>
-            <a href="#search-donors" class="btn-primary"><i class="fa-solid fa-search"></i> রক্ত খুঁজুন</a>
-        </div>
-    </header>
-
-    <!-- Main Content -->
+    <!-- Pages Container -->
     <main class="container">
-        <!-- Search Section -->
-        <section id="search-donors" class="card">
-            <h2><i class="fa-solid fa-magnifying-glass"></i> ডোনার খুঁজুন</h2>
-            <div class="search-form">
-                <select id="searchBloodGroup">
-                    <option value="">রক্তের গ্রুপ নির্বাচন করুন</option>
-                    <option value="A+">A+</option><option value="A-">A-</option>
-                    <option value="B+">B+</option><option value="B-">B-</option>
-                    <option value="O+">O+</option><option value="O-">O-</option>
-                    <option value="AB+">AB+</option><option value="AB-">AB-</option>
-                </select>
-                <button onclick="fetchDonors()" class="btn-secondary">খুঁজুন</button>
-            </div>
-            
-            <div id="loader" class="loader" style="display: none;"><i class="fa-solid fa-spinner fa-spin"></i> খুঁজছি...</div>
-            
-            <div id="donorList" class="donor-grid">
-                <!-- Data will load here dynamically -->
+        
+        <!-- Home Page -->
+        <section id="home" class="page-section active">
+            <div class="hero">
+                <h1>এক ব্যাগ রক্ত বাঁচাতে পারে একটি জীবন!</h1>
+                <p>RoktoDao - বাংলাদেশের অন্যতম রক্তদান প্ল্যাটফর্ম। আজই যুক্ত হোন আমাদের সাথে।</p>
+                <button onclick="showPage('search')" class="btn-primary"><i class="fa-solid fa-search"></i> রক্ত খুঁজুন</button>
+                <button onclick="showPage('register')" class="btn-secondary"><i class="fa-solid fa-user-plus"></i> ডোনার হোন</button>
             </div>
         </section>
 
-        <!-- Registration Section -->
-        <section id="register" class="card">
-            <h2><i class="fa-solid fa-user-plus"></i> ডোনার হিসেবে যুক্ত হোন</h2>
-            <form id="donorForm">
-                <div class="form-group">
-                    <input type="text" id="fullName" placeholder="আপনার পুরো নাম" required>
-                    <input type="tel" id="phone" placeholder="ফোন নাম্বার (যেমন: 018...)" required>
-                </div>
-                <div class="form-group">
-                    <select id="bloodType" required>
+        <!-- Search Donors Page -->
+        <section id="search" class="page-section">
+            <div class="card">
+                <h2><i class="fa-solid fa-magnifying-glass"></i> ডোনার খুঁজুন</h2>
+                <div class="advanced-search">
+                    <input type="text" id="searchName" placeholder="ডোনারের নাম">
+                    <input type="tel" id="searchPhone" placeholder="ফোন নাম্বার">
+                    <select id="searchBloodGroup">
                         <option value="">রক্তের গ্রুপ</option>
                         <option value="A+">A+</option><option value="A-">A-</option>
                         <option value="B+">B+</option><option value="B-">B-</option>
                         <option value="O+">O+</option><option value="O-">O-</option>
                         <option value="AB+">AB+</option><option value="AB-">AB-</option>
                     </select>
-                    <select id="district" required>
-                        <option value="Cox's Bazar">কক্সবাজার (Cox's Bazar)</option>
+                    
+                    <!-- Location Dropdowns (Loaded from external JS) -->
+                    <select id="searchDivision" onchange="loadDistricts('search')">
+                        <option value="">বিভাগ নির্বাচন করুন</option>
                     </select>
-                </div>
-                <div class="form-group">
-                    <select id="area" required>
-                        <option value="">উপজেলা / এলাকা নির্বাচন করুন</option>
-                        <option value="Cox's Bazar Sadar">কক্সবাজার সদর</option>
-                        <option value="Ramu">রামু (Ramu)</option>
-                        <option value="Ukhia">উখিয়া (Ukhia)</option>
-                        <option value="Teknaf">টেকনাফ (Teknaf)</option>
-                        <option value="Chakaria">চকরিয়া (Chakaria)</option>
-                        <option value="Maheshkhali">মহেশখালী (Maheshkhali)</option>
-                        <option value="Kutubdia">কুতুবদিয়া (Kutubdia)</option>
-                        <option value="Pekua">পেকুয়া (Pekua)</option>
+                    <select id="searchDistrict" disabled>
+                        <option value="">জেলা নির্বাচন করুন</option>
                     </select>
+                    
+                    <button onclick="fetchDonors()" class="btn-primary w-100">সার্চ করুন</button>
                 </div>
-                <button type="submit" class="btn-primary w-100">রেজিস্ট্রেশন করুন</button>
-            </form>
+                
+                <div id="loader" class="loader" style="display: none;"><i class="fa-solid fa-spinner fa-spin"></i> খুঁজছি...</div>
+                <div id="donorList" class="donor-grid"></div>
+            </div>
         </section>
+
+        <!-- Register Page -->
+        <section id="register" class="page-section">
+            <div class="card">
+                <h2><i class="fa-solid fa-hand-holding-medical"></i> ডোনার হিসেবে যুক্ত হোন</h2>
+                <form id="donorForm">
+                    <input type="text" id="regFullName" placeholder="আপনার পুরো নাম" required>
+                    <input type="tel" id="regPhone" placeholder="ফোন নাম্বার" required>
+                    <select id="regBloodType" required>
+                        <option value="">রক্তের গ্রুপ</option>
+                        <option value="A+">A+</option><option value="A-">A-</option>
+                        <option value="B+">B+</option><option value="B-">B-</option>
+                        <option value="O+">O+</option><option value="O-">O-</option>
+                        <option value="AB+">AB+</option><option value="AB-">AB-</option>
+                    </select>
+                    <select id="regDivision" onchange="loadDistricts('reg')" required>
+                        <option value="">বিভাগ নির্বাচন করুন</option>
+                    </select>
+                    <select id="regDistrict" disabled required>
+                        <option value="">জেলা নির্বাচন করুন</option>
+                    </select>
+                    <button type="submit" class="btn-primary w-100">রেজিস্ট্রেশন সম্পন্ন করুন</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- About Page -->
+        <section id="about" class="page-section">
+            <div class="card text-center">
+                <h2>RoktoDao সম্পর্কে</h2>
+                <p>RoktoDao একটি অলাভজনক প্ল্যাটফর্ম যা রক্তদাতা এবং গ্রহীতার মাঝে সরাসরি যোগাযোগ স্থাপন করে। জরুরি মুহূর্তে মানুষের পাশে দাঁড়ানোই আমাদের মূল লক্ষ্য।</p>
+            </div>
+        </section>
+
+        <!-- Team Page -->
+        <section id="team" class="page-section">
+            <div class="card text-center">
+                <h2>আমাদের টিম</h2>
+                <div class="donor-grid">
+                    <div class="donor-card">
+                        <h3>Mojibur Rahman</h3>
+                        <p>Founder & CEO, Oftern IT</p>
+                        <p>Project Lead - RoktoDao</p>
+                    </div>
+                    <div class="donor-card">
+                        <h3>Meherin</h3>
+                        <p>Co-Founder</p>
+                        <p>Operations Head</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Page -->
+        <section id="faq" class="page-section">
+            <div class="card">
+                <h2>সাধারণ জিজ্ঞাসা (FAQ)</h2>
+                <div class="faq-item">
+                    <h3>১. রক্তদানের যোগ্যতা কী?</h3>
+                    <p>আপনার বয়স ১৮-৬০ বছরের মধ্যে হতে হবে এবং ওজন অন্তত ৪৫ কেজি হতে হবে।</p>
+                </div>
+                <div class="faq-item">
+                    <h3>২. কতদিন পরপর রক্ত দেওয়া যায়?</h3>
+                    <p>প্রতি ৪ মাস অন্তর আপনি নিরাপদে রক্তদান করতে পারবেন।</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Page -->
+        <section id="contact" class="page-section">
+            <div class="card text-center">
+                <h2>যোগাযোগ করুন</h2>
+                <p>যেকোনো প্রয়োজনে আমাদের সাথে যোগাযোগ করুন:</p>
+                <p><i class="fa-solid fa-envelope"></i> admin@roktodao.com</p>
+                <p><i class="fa-solid fa-phone"></i> +880 1601-519007</p>
+            </div>
+        </section>
+
     </main>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2026 RoktoDao | Developed by Mojibur Rahman (Oftern IT)</p>
-    </footer>
-
+    <!-- Load BD Locations Data (Make sure this file exists in your github repo) -->
+    <script src="locationBdDivisonsToUnionsBangla.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
