@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoktoDao | রক্তদাও - Cox's Bazar</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo"><i class="fa-solid fa-droplet"></i> RoktoDao</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#search-donors">Find Blood</a></li>
+                <li><a href="#register" class="btn-primary">Become a Donor</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="hero">
+        <div class="hero-content">
+            <h1>এক ব্যাগ রক্ত বাঁচাতে পারে একটি জীবন!</h1>
+            <p>কক্সবাজার অঞ্চলের সবচেয়ে বড় এবং বিশ্বস্ত রক্তদান প্ল্যাটফর্ম। আজই যুক্ত হোন আমাদের সাথে।</p>
+            <a href="#search-donors" class="btn-primary"><i class="fa-solid fa-search"></i> রক্ত খুঁজুন</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Search Section -->
+        <section id="search-donors" class="card">
+            <h2><i class="fa-solid fa-magnifying-glass"></i> ডোনার খুঁজুন</h2>
+            <div class="search-form">
+                <select id="searchBloodGroup">
+                    <option value="">রক্তের গ্রুপ নির্বাচন করুন</option>
+                    <option value="A+">A+</option><option value="A-">A-</option>
+                    <option value="B+">B+</option><option value="B-">B-</option>
+                    <option value="O+">O+</option><option value="O-">O-</option>
+                    <option value="AB+">AB+</option><option value="AB-">AB-</option>
+                </select>
+                <button onclick="fetchDonors()" class="btn-secondary">খুঁজুন</button>
+            </div>
+            
+            <div id="loader" class="loader" style="display: none;"><i class="fa-solid fa-spinner fa-spin"></i> খুঁজছি...</div>
+            
+            <div id="donorList" class="donor-grid">
+                <!-- Data will load here dynamically -->
+            </div>
+        </section>
+
+        <!-- Registration Section -->
+        <section id="register" class="card">
+            <h2><i class="fa-solid fa-user-plus"></i> ডোনার হিসেবে যুক্ত হোন</h2>
+            <form id="donorForm">
+                <div class="form-group">
+                    <input type="text" id="fullName" placeholder="আপনার পুরো নাম" required>
+                    <input type="tel" id="phone" placeholder="ফোন নাম্বার (যেমন: 018...)" required>
+                </div>
+                <div class="form-group">
+                    <select id="bloodType" required>
+                        <option value="">রক্তের গ্রুপ</option>
+                        <option value="A+">A+</option><option value="A-">A-</option>
+                        <option value="B+">B+</option><option value="B-">B-</option>
+                        <option value="O+">O+</option><option value="O-">O-</option>
+                        <option value="AB+">AB+</option><option value="AB-">AB-</option>
+                    </select>
+                    <select id="district" required>
+                        <option value="Cox's Bazar">কক্সবাজার (Cox's Bazar)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select id="area" required>
+                        <option value="">উপজেলা / এলাকা নির্বাচন করুন</option>
+                        <option value="Cox's Bazar Sadar">কক্সবাজার সদর</option>
+                        <option value="Ramu">রামু (Ramu)</option>
+                        <option value="Ukhia">উখিয়া (Ukhia)</option>
+                        <option value="Teknaf">টেকনাফ (Teknaf)</option>
+                        <option value="Chakaria">চকরিয়া (Chakaria)</option>
+                        <option value="Maheshkhali">মহেশখালী (Maheshkhali)</option>
+                        <option value="Kutubdia">কুতুবদিয়া (Kutubdia)</option>
+                        <option value="Pekua">পেকুয়া (Pekua)</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary w-100">রেজিস্ট্রেশন করুন</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 RoktoDao | Developed by Mojibur Rahman (Oftern IT)</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
